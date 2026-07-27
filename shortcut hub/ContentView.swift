@@ -8,14 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    @AppStorage("appColorScheme") private var appColorScheme = 0
+
+    private var colorSchemeValue: ColorScheme? {
+        switch appColorScheme {
+        case 1: return .light
+        case 2: return .dark
+        default: return nil
         }
-        .padding()
+    }
+
+    var body: some View {
+        TabView {
+            Tab("Home", systemImage: Constants.homeIconString) {
+                HomeView()
+            }
+            Tab("Search", systemImage: Constants.searchIconString) {
+                SearchView()
+            }
+            Tab("Upload", systemImage: Constants.uploadIconString) {
+                UploadView()
+            }
+            Tab("Profile", systemImage: Constants.profileIconString) {
+                ProfileView()
+            }
+        }
+        .preferredColorScheme(colorSchemeValue)
     }
 }
 

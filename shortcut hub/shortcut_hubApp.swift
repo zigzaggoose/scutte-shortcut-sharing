@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct shortcut_hubApp: App {
+    @State private var authViewModel = AuthViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authViewModel.isLoggedIn {
+                ContentView()
+                    .environment(authViewModel)
+            } else {
+                AuthView()
+                    .environment(authViewModel)
+            }
         }
     }
 }
